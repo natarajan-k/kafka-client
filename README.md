@@ -15,6 +15,7 @@ git clone https://github.com/natarajan-k/kafka-client.git
 3.1) Compile the source code.
 
 Compile: 
+
 javac -classpath "lib/*:" KafkaClientV39.java
 To run:
 
@@ -23,6 +24,9 @@ As Producer: java -classpath "lib/*:" KafkaClientV39 producer <number_of_records
 As Consumer: java -classpath "lib/*:" KafkaClientV39 consumer <config-file>
 
 3.2) Use the pre-built jar file.
+
 Usage For Producer: java -jar pre-compiled/KafkaClient.jar producer <number_of_records> <config_file>
+
 Usage For Consumer: java -jar pre-compiled/KafkaClient.jar consumer <config_file>
+
 
