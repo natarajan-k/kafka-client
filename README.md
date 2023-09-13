@@ -7,7 +7,7 @@ The client may work with other Kafka products, but the libraries used to build t
 
 Guide to get started
 1) Create a folder in your local laptop and change directory to that folder.
-2) Clone the repository
+2) Clone the repository   
 git clone https://github.com/natarajan-k/kafka-client.git
 
 3) You can either compile the java source file or alternatively, use the pre-built jar package.
