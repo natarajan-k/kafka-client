@@ -30,7 +30,12 @@ import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 import java.util.Base64;
 
-public class KafkaProducerV39 {
+import io.strimzi.kafka.oauth.client.ClientConfig;
+import io.strimzi.kafka.oauth.common.Config;
+import io.strimzi.kafka.oauth.common.ConfigProperties;
+
+
+public class KafkaProducerV311 {
     public static boolean enableschemaavro=false;
     public static String autoregisterschemas="false";
     public static boolean enableintercept=false;
@@ -63,14 +68,13 @@ public class KafkaProducerV39 {
     public static String intercept_sasljaas;
     public static String intercept_security;
     public static String intercept_saslmechanism;
+    public static String sslendpointidentification; 
     private static String file1Name = "file1.txt";
     private static String file2Name = "file2.txt";
     private static String file3Name = "file3.txt";
     private static int numofrecords = 0;
     public static KafkaProducer<String, String> nonavroproducer;
     public static KafkaProducer<String, GenericRecord> avroproducer;
-//    public static final String ARTIFACT_RESOLVER_STRATEGY_DEFAULT = TopicIdStrategy.class.getName();
-//    public static final String SCHEMA_RESOLVER = "io.apicurio.registry.serde.DefaultSchemaResolver";
     public static final String REGISTRY_CONVERTER_DESERIALIZER_PARAM = "apicurio.registry.converter.deserializer";
     public static GenericRecord customer;
     public static void start(String[] args) {
@@ -103,6 +107,7 @@ public class KafkaProducerV39 {
 	    retries = prop.getProperty("retries");
 	    security = prop.getProperty("security.protocol");
 	    saslmechanism = prop.getProperty("sasl.mechanism");
+	    sslendpointidentification = prop.getProperty("ssl.endpoint.identification.algorithm");
 	    topic = prop.getProperty("topic");
 	    if (security.contains("SSL")){
 		truststorelocation = prop.getProperty("ssl.truststore.location");
@@ -121,9 +126,6 @@ public class KafkaProducerV39 {
 	    }
 	    if (enableschemaavro) {
 		schemaurl = prop.getProperty("apicurio.registry.url");
-//		basicauth = prop.getProperty("basic.auth.credentials.source");
-//		basicauthuser = prop.getProperty("schema.registry.basic.auth.user");
-//		basicauthpassword = prop.getProperty("schema.registry.basic.auth.password");
 		autoregisterschemas = prop.getProperty("auto.register.schemas");
 		if (!enableschemamtls) {
 		   basicauth = prop.getProperty("basic.auth.credentials.source");
@@ -164,7 +166,7 @@ public class KafkaProducerV39 {
         Properties properties = new Properties();
         // normal producer
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+	properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
         properties.setProperty("retries", retries);
 	properties.setProperty(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, security);
 	properties.setProperty(SaslConfigs.SASL_JAAS_CONFIG, sasljaas);
@@ -173,7 +175,7 @@ public class KafkaProducerV39 {
         if (security.contains("SSL")){
         	properties.setProperty(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, truststorelocation);
 		properties.setProperty(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, truststoretype);
-		properties.setProperty("ssl.endpoint.identification.algorithm", "");
+		properties.setProperty("ssl.endpoint.identification.algorithm", sslendpointidentification);
                 if (truststoretype.contains("PKCS12") || truststoretype.contains("JKS")){
                         properties.setProperty(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, truststorepassword);
                 }
@@ -191,6 +193,9 @@ public class KafkaProducerV39 {
         if (saslmechanism.equals("GSSAPI")) {
 		properties.setProperty("sasl.kerberos.service.name", kerberosservicename);        
         }
+        if (saslmechanism.equals("OAUTHBEARER")) {
+ 		properties.setProperty("sasl.login.callback.handler.class","io.strimzi.kafka.oauth.client.JaasClientOauthLoginCallbackHandler");
+	}
         if (enableschemamtls) {
                      properties.putIfAbsent(ApicurioClientConfig.APICURIO_REQUEST_KEYSTORE_LOCATION, schemakeystorelocation);
                      properties.put(ApicurioClientConfig.APICURIO_REQUEST_KEYSTORE_PASSWORD, schemakeystorepassword);
@@ -229,7 +234,6 @@ public class KafkaProducerV39 {
     	} catch (IOException e) {
         	System.out.println("File can't be opened.");
     	}
-
         try {
                 file2lines = Files.readAllLines(Paths.get(file2Name),
                 StandardCharsets.UTF_8);

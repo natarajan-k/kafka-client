@@ -1,4 +1,4 @@
-public class KafkaClientV39 {
+public class KafkaClientV311 {
     public static void main(String[] args) throws Exception {
         if (args != null && args.length > 0) {
             String option= args[0]; 
@@ -10,11 +10,11 @@ public class KafkaClientV39 {
             }
             
             if(option.equalsIgnoreCase("producer")) {
-                new KafkaProducerV39().start(args2);
+                new KafkaProducerV311().start(args2);
             }
             else if(option.equalsIgnoreCase("consumer")){                
 //		System.out.println("Not Ready Yet");
-                new KafkaConsumerV39().start(args2);
+                new KafkaConsumerV311().start(args2);
 	    }
 	    else {
 		System.out.println("Usage For Producer: java -jar KafkaClient.jar producer <number_of_records> <config_file>");

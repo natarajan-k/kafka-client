@@ -2,7 +2,7 @@
 A simple Kafka Client to try different features of IBM EventStreams.   
 ## Pre-req:   
 * You need to have a functioning IBM Event Streams platform.    
-* java 17 (java development kit needed if you want to modify the code)   
+* java 20 (java development kit needed if you want to modify the code)   
 
 The client may work with other Kafka products, but the libraries used to build this client are ones that is needed by IBM EventStreams.   
 
@@ -16,11 +16,11 @@ git clone https://github.com/natarajan-k/kafka-client.git
 3.1)  Compile the source code.   
 
     Compile:    
-    javac -classpath "lib/*:" KafkaClientV39.java   
+    javac -classpath "lib/*:" KafkaClientV311.java   
 
     To run:   
-    As Producer: java -classpath "lib/*:" KafkaClientV39 producer <number_of_records>  <config-file>   
-    As Consumer: java -classpath "lib/*:" KafkaClientV39 consumer <config-file>   
+    As Producer: java -classpath "lib/*:" KafkaClientV311 producer <number_of_records>  <config-file>   
+    As Consumer: java -classpath "lib/*:" KafkaClientV311 consumer <config-file>   
 
 3.2) Use the pre-built jar file.
 

@@ -20,7 +20,11 @@ import java.io.File;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class KafkaConsumerV39 {
+import io.strimzi.kafka.oauth.client.ClientConfig;
+import io.strimzi.kafka.oauth.common.Config;
+import io.strimzi.kafka.oauth.common.ConfigProperties;
+
+public class KafkaConsumerV311 {
     public static boolean enableschemaavro=false;
     public static boolean enableintercept=false;
     public static boolean enablemtls=false;
@@ -51,6 +55,7 @@ public class KafkaConsumerV39 {
     public static String keystorelocation;
     public static String keystorepassword;
     public static String sslkeypassword;
+    public static String sslendpointidentification;
     public static String consumergroupid;
     public static String consumerclientid;
     public static KafkaConsumer<String, GenericRecord> avroConsumer;
@@ -76,6 +81,7 @@ public class KafkaConsumerV39 {
 	    security = prop.getProperty("security.protocol");
 	    saslmechanism = prop.getProperty("sasl.mechanism");
 	    topic = prop.getProperty("topic");
+	    sslendpointidentification = prop.getProperty("ssl.endpoint.identification.algorithm");
     	    consumergroupid = prop.getProperty("group.id");
 	    consumerclientid = prop.getProperty("client.id");
 	    if (security.contains("SSL")){
@@ -139,7 +145,7 @@ public class KafkaConsumerV39 {
         if (security.contains("SSL")){
                 properties.setProperty(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, truststorelocation);
 		properties.setProperty(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, truststoretype);
-		properties.put("ssl.endpoint.identification.algorithm", "");
+		properties.put("ssl.endpoint.identification.algorithm", sslendpointidentification);
 		if (truststoretype.contains("PKCS12") || truststoretype.contains("JKS")){
                 	properties.setProperty(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, truststorepassword);
 		}
@@ -157,7 +163,10 @@ public class KafkaConsumerV39 {
         if (saslmechanism.equals("GSSAPI")) {
                 properties.setProperty("sasl.kerberos.service.name", kerberosservicename);
         }
-        if (enableschemamtls) {
+        if (saslmechanism.equals("OAUTHBEARER")) {
+                properties.setProperty("sasl.login.callback.handler.class","io.strimzi.kafka.oauth.client.JaasClientOauthLoginCallbackHandler");
+        }
+	if (enableschemamtls) {
                    properties.put(ApicurioClientConfig.APICURIO_REQUEST_KEYSTORE_LOCATION, schemakeystorelocation);
                    properties.put(ApicurioClientConfig.APICURIO_REQUEST_KEYSTORE_PASSWORD, schemakeystorepassword);
                    properties.put(ApicurioClientConfig.APICURIO_REQUEST_KEYSTORE_TYPE, schemakeystoretype);
