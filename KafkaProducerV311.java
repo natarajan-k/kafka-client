@@ -279,8 +279,10 @@ public class KafkaProducerV311 {
 
 	} // End the enableschemaavro if
 	if (!enableschemaavro) {
-		String message = file1lines.get(random1WordIndex) + " " + file2lines.get(random2WordIndex) + " " + file3lines.get(random3WordIndex);
-		nonavroproducer.send(new ProducerRecord<String, String>(topic, message), new Callback() {
+//		String message = file1lines.get(random1WordIndex) + " " + file2lines.get(random2WordIndex) + " " + file3lines.get(random3WordIndex);
+
+		String message = "{\"first_name\":\"" + file1lines.get(random1WordIndex) + "\",\"last_name\":\"" + file2lines.get(random2WordIndex) + "\",\"country\":\"" + file3lines.get(random3WordIndex) + "\",\"age\":" + ((int)(Math.random() * ((80 - 1) + 1)) + 1) +" }";
+                nonavroproducer.send(new ProducerRecord<String, String>(topic, message), new Callback() {
           @Override
           public void onCompletion(RecordMetadata metadata, Exception exception) {
             if (exception != null) {
