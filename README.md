@@ -16,16 +16,18 @@ git clone https://github.com/natarajan-k/kafka-client.git
 3.1)  Compile the source code.   
 
     Compile:    
-    javac -classpath "lib/*:" KafkaClientV311.java   
+    javac -classpath "lib/*:" KafkaClientV312.java   
 
     To run:   
-    As Producer: java -classpath "lib/*:" KafkaClientV311 producer <number_of_records>  <config-file>   
-    As Consumer: java -classpath "lib/*:" KafkaClientV311 consumer <config-file>   
+    As Producer: java -classpath "lib/*:" KafkaClientV312 producer <number_of_records>  <config-file>   
+    As Consumer: java -classpath "lib/*:" KafkaClientV312 consumer <config-file>   
 
 3.2) Use the pre-built jar file.
 
     As Producer: java -jar pre-compiled/KafkaClient.jar producer <number_of_records> <config_file>
     As Consumer: java -jar pre-compiled/KafkaClient.jar consumer <config_file>
+    Check Version: java -jar pre-compiled/KafkaClient.jar version
+    Send a custom message: java -jar pre-compiled/KafkaClient.jar producer <config_file> <message>
 
 ## config.properties file. 
 The config.properties file available as part of this package is mostly self-explanatory. 
