@@ -21,7 +21,8 @@ Tested with IBM Event Streams and Confluent.
 1. Create a folder in your local laptop and change directory to that folder. 
 2. Clone the repository.   
 git clone https://github.com/natarajan-k/kafka-client.git.     
-Alternatively, download the zip file inside the pre-compiled folder and unzip it locally.   
+Alternatively, download the [zip file](https://ibm.biz/kafka-client).   
+
 3. Update the properties file. 
 
 4. Test sending / receiving messages.  
