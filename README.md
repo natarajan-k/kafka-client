@@ -10,7 +10,12 @@ Tested with IBM Event Streams and Confluent.
 * Java version at least 25. 
 
 ## Limitation
-* mTLS access to Schema Registry is not supported. 
+* mTLS access to Schema Registry is not fully supported. 
+
+## Main Changes
+
+### Version 3.30
+1. Added Support for Confluent Schema Registry
 
 ## Guide to Getting Started
 1. Create a folder in your local laptop and change directory to that folder. 
