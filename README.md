@@ -13,6 +13,10 @@ Tested with IBM Event Streams and Confluent.
 * mTLS access to Schema Registry is not fully supported. 
 
 ## Main Changes
+### Version 3.40
+1) Added a delay between flushing messages and closing producer - to provide time for producer to push metrics to brokers (KIP-714 Metrics).   
+2) Included seperate client.id for Producer and consumer. Previously client-id for producers were auto-assigned by Kafka.
+3) Included Apicurio Schema GlobalId to be pushed in header to be compatible with the older client version.  
 
 ### Version 3.30
 1. Added Support for Confluent Schema Registry 
