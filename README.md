@@ -35,6 +35,8 @@ Alternatively, download the [zip file](https://ibm.biz/kafka-client).
         java -jar KafkaClient.jar producer  <number_of_records>  <config-file> 
         As Consumer:
         java -jar KafkaClient.jar consumer <config-file> 
+        To send a custom JSON message:
+        java -jar KafkaClient.jar custom <config-file> {"first_name": "Rajan","last_name": "K","country": "Malaysia","age": 56}'
 
 ## Config File
 The config.properties file available as part of this package is mostly self-explanatory. 
