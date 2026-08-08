@@ -6,13 +6,17 @@ Tested with IBM Event Streams and Confluent.
 
 ## Pre-Req:
 
-* You need to have a functioning IBM Event Streams or Confluent platform. 
+* You need to have a functioning Confluent platform. 
 * Java version at least 25. 
 
 ## Limitation
 * mTLS access to Schema Registry is not fully supported. 
 
 ## Main Changes
+### Version 4.00
+1) Migrated to use Confluent libraries. 
+2) Removed support for Apicurio Schema Registry.   
+
 ### Version 3.40
 1) Added a delay between flushing messages and closing producer - to provide time for producer to push metrics to brokers (KIP-714 Metrics).   
 2) Included seperate client.id for Producer and consumer. Previously client-id for producers were auto-assigned by Kafka.
