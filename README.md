@@ -7,7 +7,7 @@ Tested with IBM Event Streams and Confluent.
 ## Pre-Req:
 
 * You need to have a functioning Confluent platform. 
-* Java version at least 25. 
+* Java version at least 25. [Download](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/)
 
 ## Limitation
 * mTLS access to Schema Registry is not fully supported. 
@@ -42,5 +42,5 @@ Alternatively, download the [zip file](https://ibm.biz/kafka-client).
         To send a custom JSON message:
         java -jar KafkaClient.jar custom <config-file> {"first_name": "Rajan","last_name": "K","country": "Malaysia","age": 56}'
 
-## Config File
+## Properties File
 The config.properties file available as part of this package is mostly self-explanatory. 
