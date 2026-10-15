@@ -12,9 +12,7 @@ Tested with IBM Event Streams and Confluent.
 ## Main Changes
 ### Version 4.10
 1) Support for OAuth based listener (producer and consumer)
-2) Support for OAuth - RBAC for Kafka and Schema Registry.
-3) Support for IdP (KeyCloak) based SSO login for Control Center. 
-4) Assign Roles from Control Center. 
+2) Support for OAuth based authentication for Kafka and Schema Registry.
 
 ### Version 4.00
 1) Migrated to use Confluent libraries. 
