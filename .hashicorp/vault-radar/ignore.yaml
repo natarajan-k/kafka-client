@@ -1,2 +1,5 @@
 - paths:
     - config.properties
+- secret_values:
+    - PASSWORD
+    - APIKEY
